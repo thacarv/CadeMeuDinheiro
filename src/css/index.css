@@ -6,8 +6,9 @@
   font-style: normal;
 
   color-scheme: light dark;
-  color: rgba(163, 57, 57, 0.87);
+  color: #323232;
   background-color: #242424;
+  font-size: 1rem;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
