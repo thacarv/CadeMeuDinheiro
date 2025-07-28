@@ -3,7 +3,7 @@ import { ArrowDown, ArrowUp } from "lucide-react";
 function Balance() {
   return (
     <>
-      <div className="div-app-theme flex flex-col justify-center items-center h-[12vh] mt-20 mb-15">
+      <div className="div-app-theme flex flex-col justify-center items-center h-[12vh] mt-20 mb-15  z-1">
         <p className="text-text-200 ">MEU SALDO</p>
         {/* Receber o valor do saldo */}
         <div className="flex items-end max-w-[65vw] max-h-[4.5vh] overflow-y-auto no-scrollbar ">
@@ -22,6 +22,7 @@ function Balance() {
           </div>
         </div>
       </div>
+      <div className="bg-image-theme absolute top-0 left-0 h-74.5 w-full  mix-blend-multiply z-0"></div>
     </>
   );
 }
