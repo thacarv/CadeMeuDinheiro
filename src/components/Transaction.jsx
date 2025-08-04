@@ -3,7 +3,12 @@ import History from "./History";
 import NewTransaction from "./NewTransaction";
 import { useSwipeable } from "react-swipeable";
 
-function Transaction({ mockList }) {
+function Transaction({
+  setHistoryList,
+  historyList,
+  removeTransaction,
+  updateBalance,
+}) {
   const [newTransaction, setNewTransaction] = useState(false);
 
   const handlers = useSwipeable({
@@ -17,12 +22,20 @@ function Transaction({ mockList }) {
   });
 
   return (
-    <div {...handlers}>
-      <div className={`${newTransaction ? "hidden" : ".slide-to-right"}`}>
-        <History mockList={mockList} />
+    <div {...handlers} className="h-[100%]">
+      <div className={`${newTransaction ? "hidden" : ""}`}>
+        <History
+          setHistoryList={setHistoryList}
+          historyList={historyList}
+          removeTransaction={removeTransaction}
+        />
       </div>
-      <div className={`${newTransaction ? "slide-to-left" : "hidden"}`}>
-        <NewTransaction />
+      <div className={`${newTransaction ? "" : "hidden"}`}>
+        <NewTransaction
+          setHistoryList={setHistoryList}
+          historyList={historyList}
+          updateBalance={updateBalance}
+        />
       </div>
     </div>
   );

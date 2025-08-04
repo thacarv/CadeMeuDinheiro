@@ -1,9 +1,10 @@
-import { Circle, ShoppingBag } from "lucide-react";
+import { Circle, ShoppingBag, X } from "lucide-react";
+import ItemObject from "./ItemObject";
 
-function History({ mockList }) {
+function History({ historyList, removeTransaction }) {
   return (
     <>
-      <div className="flex flex-col items-center ">
+      <div className="flex flex-col items-center mt-3">
         {/* TITLE */}
         <h1 className="mt-4 text-2xl">HISTÓRICO</h1>
         {/* DOT MENU */}
@@ -12,22 +13,26 @@ function History({ mockList }) {
           <Circle fill="#99a1af" size={10} />
         </div>
         {/* DISPLAY INFORMATION */}
-        <div className="no-scrollbar flex flex-col max-h-80 w-70 mt-15 overflow-scroll ">
+        <div
+          className={`slide-to-right ${
+            historyList.length === 0
+              ? "flex flex-col justify-center items-center h-80 p-10 text-2xl text-text-200"
+              : "hidden"
+          }`}
+        >
+          <p className="font-light">
+            Parece que seu histórico está vazio, arraste para esquerda para
+            adicionar nova transação.
+          </p>
+        </div>
+        <div className="slide-to-right no-scrollbar flex flex-col max-h-80 w-70 mt-15 overflow-scroll ">
           {/* MAP ARRAY OF ITEMS */}
-          {mockList.reverse().map((item) => (
-            <div className="flex justify-between h-25 mb-3">
-              <div className="flex">
-                <ShoppingBag />
-                <div className="flex flex-col ml-5">
-                  {item.categoria}
-                  <div>{item.date}</div>
-                </div>
-              </div>
-              <div>
-                {item.entrada ? "+" : "-"}
-                {item.value}
-              </div>
-            </div>
+          {historyList.reverse().map((item) => (
+            <ItemObject
+              key={item.id}
+              item={item}
+              removeTransaction={removeTransaction}
+            />
           ))}
         </div>
       </div>
