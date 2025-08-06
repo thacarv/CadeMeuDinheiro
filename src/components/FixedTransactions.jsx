@@ -1,28 +1,16 @@
+import Filter from "./filter";
 import ItemObject from "./ItemObject";
 import RadioInput from "./RadioInput";
-import { useState } from "react";
 
 function FixedTransactions({ historyList, removeTransaction }) {
-  const [isChecked, setIsChecked] = useState(true);
   return (
     <>
       <div className="flex flex-col items-center mt-3">
         {/* TÍTULO */}
         <h1 className="mt-4 text-2xl">TRANSAÇÕES FIXAS</h1>
-        {/* BOTÕES */}
-        <div className="flex justify-around items-center mt-5">
-          <RadioInput
-            tipo={"entrada"}
-            category={"checkbox"}
-            isChecked={isChecked}
-            setIsChecked={setIsChecked}
-          />
-          <RadioInput
-            tipo={"saída"}
-            category={"checkbox"}
-            isChecked={isChecked}
-            setIsChecked={setIsChecked}
-          />
+        {/* Filter */}
+        <div className="flex items-start w-[70vw] mt-5">
+          <Filter />
         </div>
         {/* LISTA */}
         <div className="div-app-content-theme">

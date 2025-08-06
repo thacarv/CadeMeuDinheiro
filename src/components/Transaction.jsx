@@ -28,6 +28,7 @@ function Transaction({
           setHistoryList={setHistoryList}
           historyList={historyList}
           removeTransaction={removeTransaction}
+          updateBalance={updateBalance}
         />
       </div>
       <div className={`${newTransaction ? "" : "hidden"}`}>

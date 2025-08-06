@@ -85,8 +85,8 @@ function NewTransaction({ setHistoryList, historyList, updateBalance }) {
 
             {/* BOTÃO DE ENTRADA E SAÍDA */}
             <div className="flex justify-around items-center mt-10">
-              <RadioInput tipo={"entrada"} category={"radio"} />
-              <RadioInput tipo={"saída"} category={"radio"} />
+              <RadioInput tipo={"entrada"} />
+              <RadioInput tipo={"saída"} />
             </div>
             {/* OPÇÕES */}
             <div className="div-app-content-theme">

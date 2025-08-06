@@ -1,7 +1,7 @@
 import { Circle, ShoppingBag, X } from "lucide-react";
 import ItemObject from "./ItemObject";
 
-function History({ historyList, removeTransaction }) {
+function History({ historyList, removeTransaction, updateBalance }) {
   return (
     <>
       <div className="flex flex-col items-center mt-3">
@@ -25,7 +25,10 @@ function History({ historyList, removeTransaction }) {
             adicionar nova transação.
           </p>
         </div>
-        <div className="slide-to-right no-scrollbar flex flex-col max-h-80 w-70 mt-15 overflow-scroll ">
+        <div
+          onChange={() => updateBalance()}
+          className="slide-to-right no-scrollbar flex flex-col max-h-80 w-70 mt-15 overflow-scroll "
+        >
           {/* MAP ARRAY OF ITEMS */}
           {historyList.reverse().map((item) => (
             <ItemObject
