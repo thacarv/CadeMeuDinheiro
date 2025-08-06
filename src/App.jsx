@@ -10,14 +10,22 @@ function App() {
   const [historyList, setHistoryList] = useState(
     JSON.parse(localStorage.getItem("historyList")) || []
   );
-  const [finalBalance, setFinalBalance] = useState(0);
-  const [positiveValue, setPositiveValue] = useState(0);
-  const [negativeValue, setNegativeValue] = useState(0);
+  const [finalBalance, setFinalBalance] = useState(
+    JSON.parse(localStorage.getItem("finalBalance")) || 0
+  );
+  const [positiveValue, setPositiveValue] = useState(
+    JSON.parse(localStorage.getItem("positiveValue")) || 0
+  );
+  const [negativeValue, setNegativeValue] = useState(
+    JSON.parse(localStorage.getItem("negativeValue")) || 0
+  );
 
   // Salva a lista de transações no localStorage sempre que historyList mudar.
   useEffect(() => {
     localStorage.setItem("historyList", JSON.stringify(historyList));
-    console.log(historyList);
+    localStorage.setItem("finalBalance", JSON.stringify(finalBalance));
+    localStorage.setItem("positiveValue", JSON.stringify(positiveValue));
+    localStorage.setItem("negativeValue", JSON.stringify(negativeValue));
   }, [historyList]);
   console.log(historyList);
 

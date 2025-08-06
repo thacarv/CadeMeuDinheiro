@@ -23,17 +23,14 @@ function MiddleBox({
   }
   // Função que vai permitir salvar os valores passados no balanço geral.
   function updateBalance(item) {
-    for (item in historyList) {
-      console.log(historyList);
-      if (item.transaction === "entrada") {
-        let attBalance = finalBalance + item.valor;
-        let positive = item.valor + positiveValue;
-        settingValue(true, positive, attBalance);
-      } else {
-        let attBalance = finalBalance - item.valor;
-        let negative = item.valor + negativeValue;
-        settingValue(false, negative, attBalance);
-      }
+    if (item.transaction === "entrada") {
+      let attBalance = finalBalance + item.valor;
+      let positive = item.valor + positiveValue;
+      settingValue(true, positive, attBalance);
+    } else {
+      let attBalance = finalBalance - item.valor;
+      let negative = item.valor + negativeValue;
+      settingValue(false, negative, attBalance);
     }
   }
 
