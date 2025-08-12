@@ -27,7 +27,6 @@ function App() {
     localStorage.setItem("positiveValue", JSON.stringify(positiveValue));
     localStorage.setItem("negativeValue", JSON.stringify(negativeValue));
   }, [historyList]);
-  console.log(historyList);
 
   return (
     <>

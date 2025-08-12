@@ -22,7 +22,7 @@ function Transaction({
   });
 
   return (
-    <div {...handlers} className="h-[100%]">
+    <div {...handlers} className="h-[90%]">
       <div className={`${newTransaction ? "hidden" : ""}`}>
         <History
           setHistoryList={setHistoryList}

@@ -1,5 +1,3 @@
-import { categoryList } from "../assets/Files/category";
-
 import { ArrowDownWideNarrowIcon } from "lucide-react";
 import { useState } from "react";
 
@@ -29,32 +27,6 @@ function Filter() {
           <div className="flex justify-around mt-5">
             <input type="date" name="dateStart" id="dateStart" />
             <input type="date" name="dateEnd" id="dateEnd" />
-          </div>
-          {/*  Categories */}
-          <div className="grid grid-cols-14 gap-20  max-w-[78vw] mt-5 overflow-x-scroll">
-            {categoryList.map((item) => (
-              <div
-                key={item.id}
-                className={
-                  " flex flex-col justify-center items-center h-[9vh] w-[17.5vw] rounded-[10px] px-3 "
-                }
-                style={{ backgroundColor: item.color }}
-              >
-                <label
-                  htmlFor={item.categoria}
-                  className="flex flex-col justify-center items-center text-[0.7rem]"
-                >
-                  {item.icon}
-                  <input
-                    type="checkbox"
-                    name={item.categoria}
-                    id={item.categoria}
-                  />
-                  <p className="text-text-200">{item.categoria}</p>
-                </label>
-                <p>R$ 10</p>
-              </div>
-            ))}
           </div>
         </div>
       </div>

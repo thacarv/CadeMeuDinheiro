@@ -10,8 +10,6 @@ function ItemObject({ item, removeTransaction }) {
   let itemIcon = itemFull[0].icon;
   let itemColor = itemFull[0].color;
 
-  console.log(itemIcon, itemColor);
-
   return (
     <div className="flex justify-between items-center mb-5">
       <div className="flex justify-between  w-60 ">
@@ -35,7 +33,7 @@ function ItemObject({ item, removeTransaction }) {
         </div>
       </div>
       <button
-        onClick={() => removeTransaction(item.id)}
+        onClick={() => removeTransaction(item)}
         className="text-secondary-200"
       >
         <X />

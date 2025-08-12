@@ -1,13 +1,12 @@
 import Filter from "./filter";
 import ItemObject from "./ItemObject";
-import RadioInput from "./RadioInput";
 
 function FixedTransactions({ historyList, removeTransaction }) {
   return (
     <>
       <div className="flex flex-col items-center mt-3">
         {/* TÍTULO */}
-        <h1 className="mt-4 text-2xl">TRANSAÇÕES FIXAS</h1>
+        <h1 className="mt-2 text-2xl">TRANSAÇÕES FIXAS</h1>
         {/* Filter */}
         <div className="flex items-start w-[70vw] mt-5">
           <Filter />

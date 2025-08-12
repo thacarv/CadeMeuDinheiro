@@ -6,7 +6,7 @@ function History({ historyList, removeTransaction, updateBalance }) {
     <>
       <div className="flex flex-col items-center mt-3">
         {/* TITLE */}
-        <h1 className="mt-4 text-2xl">HISTÓRICO</h1>
+        <h1 className="mt-2 text-2xl">HISTÓRICO</h1>
         {/* DOT MENU */}
         <div className="flex justify-around w-20 mt-3 text-gray-400">
           <Circle color="pink" fill="pink" size={10} />

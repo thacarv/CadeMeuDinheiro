@@ -35,7 +35,6 @@ function NewTransaction({ setHistoryList, historyList, updateBalance }) {
     setCategoryType("");
     setDateD("");
     updateBalance(transactionObject);
-    console.log(transactionObject);
   }
 
   // Função de clique para iniciar a animação
@@ -59,7 +58,7 @@ function NewTransaction({ setHistoryList, historyList, updateBalance }) {
       >
         <div className="flex flex-col items-center ">
           {/* TITLE */}
-          <h1 className="mt-4 text-2xl">ADICIONAR TRANSAÇÃO</h1>
+          <h1 className="mt-2 text-2xl">ADICIONAR TRANSAÇÃO</h1>
           {/* DOT MENU */}
           <div className="flex justify-around w-20 mt-3 text-gray-400">
             <Circle fill="#99a1af" size={10} />

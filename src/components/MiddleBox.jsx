@@ -50,19 +50,20 @@ function MiddleBox({
   }
 
   // Function que vai remover item ao clicar no X
-  function removeTransaction(itemID) {
+  function removeTransaction(itemInfo) {
+    console.log(itemInfo);
     const newList = historyList.filter((item) => {
-      if (itemID == item.id) {
+      if (itemInfo.id == item.id) {
         removeValue(item);
       }
-      return itemID != item.id;
+      return itemInfo.id != item.id;
     });
     setHistoryList(newList);
   }
 
   return (
     <>
-      <div className="div-app-theme h-[52vh] z-1 overflow-hidden">
+      <div className="div-app-theme h-[52vh] z-1 overflow-x-scroll">
         {pageValue === 1 ? (
           <Transaction
             historyList={historyList}
@@ -76,7 +77,7 @@ function MiddleBox({
             removeTransaction={removeTransaction}
           />
         ) : (
-          <Analytics />
+          <Analytics historyList={historyList} />
         )}
       </div>
     </>
