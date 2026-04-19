@@ -8,6 +8,14 @@ export default function Settings({ session, setPageValue, installPrompt, setInst
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState({ text: "", type: "" });
+  const [isIOS, setIsIOS] = useState(false);
+
+  useEffect(() => {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    const isIosDevice = /iphone|ipad|ipod/.test(userAgent);
+    const isStandalone = (window.navigator as any).standalone === true;
+    setIsIOS(isIosDevice && !isStandalone);
+  }, []);
 
   useEffect(() => {
     if (session?.user) {
@@ -151,7 +159,7 @@ export default function Settings({ session, setPageValue, installPrompt, setInst
           </button>
         </form>
 
-        {installPrompt && (
+        {installPrompt ? (
           <div className="flex flex-col mt-2 pt-6 border-t border-white/10">
             <button 
               type="button"
@@ -165,7 +173,16 @@ export default function Settings({ session, setPageValue, installPrompt, setInst
               Acesse o aplicativo diretamente pela tela de início do seu dispositivo celular.
             </p>
           </div>
-        )}
+        ) : isIOS ? (
+          <div className="flex flex-col mt-2 pt-6 border-t border-white/10">
+            <div className="w-full p-4 bg-white/5 border border-white/10 rounded-xl flex flex-col items-center gap-3 shadow-inner">
+               <div className="text-white/40"><DownloadCloud size={24} /></div>
+               <p className="text-xs text-white/80 text-center leading-relaxed">
+                 Para instalar no iPhone, toque no botão de <strong>Compartilhar</strong> (quadrado com seta pra cima) no rodapé do Safari e selecione <strong>"Adicionar à Tela de Início"</strong>.
+               </p>
+            </div>
+          </div>
+        ) : null}
       </div>
     </div>
   );
