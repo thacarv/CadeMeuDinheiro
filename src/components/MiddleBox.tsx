@@ -10,6 +10,8 @@ function MiddleBox({
   historyList,
   session,
   setPageValue,
+  installPrompt,
+  setInstallPrompt
 }: any) {
 
   // Função para remover as transações tanto no banco de dados quanto na UI em tempo real
@@ -38,7 +40,12 @@ function MiddleBox({
       ) : pageValue === 3 ? (
         <Analytics historyList={historyList} />
       ) : pageValue === 4 ? (
-        <Settings session={session} setPageValue={setPageValue} />
+        <Settings 
+          session={session} 
+          setPageValue={setPageValue} 
+          installPrompt={installPrompt} 
+          setInstallPrompt={setInstallPrompt} 
+        />
       ) : null}
     </div>
   );
