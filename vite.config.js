@@ -16,21 +16,19 @@ export default defineConfig({
       manifest: {
         name: 'Cadê Meu Dinheiro?',
         short_name: 'Dinheiro',
-        description: 'Seu controle financeiro pessoal moderno e na nuvem.',
+        description: 'Seu controle financeiro pessoal.',
         theme_color: '#0f172a',
         background_color: '#0f172a',
         display: 'standalone',
         orientation: 'portrait',
+        start_url: '/cademeudinheiro/',
+        scope: '/cademeudinheiro/',
         icons: [
           {
-            src: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
-            sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
-            sizes: '512x512',
-            type: 'image/png'
+            src: 'pwa-icon.svg',
+            sizes: '192x192 512x512',
+            type: 'image/svg+xml',
+            purpose: 'any maskable'
           }
         ]
       }
