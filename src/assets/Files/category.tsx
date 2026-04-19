@@ -97,6 +97,6 @@ export const categoryList = [
     id: 14,
     icon: <CircleEllipsis />,
     categoria: "Outros",
-    color: "#E9F5FF",
+    color: "#718096",
   },
 ];

@@ -7,6 +7,7 @@ import { ChevronRight, ChevronLeft } from "lucide-react";
 function Transaction({
   setHistoryList,
   historyList,
+  rawHistoryList,
   removeTransaction,
 }: any) {
   const [newTransaction, setNewTransaction] = useState(false);
@@ -49,7 +50,7 @@ function Transaction({
         </button>
         <NewTransaction
           setHistoryList={setHistoryList}
-          historyList={historyList}
+          historyList={rawHistoryList || historyList}
         />
       </div>
     </div>

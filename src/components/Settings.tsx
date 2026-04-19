@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
-import { ArrowLeft, Edit3, Mail, Lock, DownloadCloud } from "lucide-react";
+import { ArrowLeft, Edit3, Mail, Lock, DownloadCloud, LogOut } from "lucide-react";
 
 export default function Settings({ session, setPageValue, installPrompt, setInstallPrompt }: any) {
   const [displayName, setDisplayName] = useState("");
@@ -159,6 +159,17 @@ export default function Settings({ session, setPageValue, installPrompt, setInst
           </button>
         </form>
 
+        {/* LOGOUT BUTTON */}
+        <button 
+          type="button"
+          onClick={async () => await supabase.auth.signOut()}
+          className="w-full h-12 mt-2 bg-secondary-200/5 text-secondary-200 border border-secondary-200/20 rounded-xl font-bold tracking-wide text-sm flex items-center justify-center transition-all hover:bg-secondary-200/10"
+        >
+          <LogOut size={18} className="mr-2" />
+          SAIR DA CONTA
+        </button>
+
+        {/* PWA INSTALL COMPONENT */}
         {installPrompt ? (
           <div className="flex flex-col mt-2 pt-6 border-t border-white/10">
             <button 

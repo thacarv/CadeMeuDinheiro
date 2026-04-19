@@ -1,7 +1,8 @@
 import { ArrowDown, ArrowUp, Settings as SettingsIcon } from "lucide-react";
 import { formatCurrency } from "../utils/formatCurrency";
+import Filter from "./Filter";
 
-function Balance({ finalBalance, positiveValue, negativeValue, session, setPageValue }: any) {
+function Balance({ finalBalance, positiveValue, negativeValue, session, setPageValue, filterData, setFilterData }: any) {
   const metaName = session?.user?.user_metadata?.display_name;
   const rawEmail = session?.user?.email;
   const accountName = metaName || (rawEmail ? rawEmail.split('@')[0] : "visitante");
@@ -9,7 +10,9 @@ function Balance({ finalBalance, positiveValue, negativeValue, session, setPageV
   return (
     <div className="relative w-full z-10 pt-8 pb-2">
       <div className="w-full mb-3 flex items-center justify-between">
-         <p className="text-white/60 text-sm tracking-wide font-medium">Olá, <span className="text-white font-semibold">@{accountName}</span></p>
+         <div className="flex items-center gap-3 relative z-50">
+           <p className="text-white/60 text-sm tracking-wide font-medium">Olá, <span className="text-white font-semibold">@{accountName}</span></p>
+         </div>
          <div className="flex gap-2">
            <button 
              onClick={() => setPageValue?.(4)} 
@@ -20,7 +23,10 @@ function Balance({ finalBalance, positiveValue, negativeValue, session, setPageV
            </button>
          </div>
       </div>
-      <div className="glass-card flex flex-col items-center p-6 w-full shadow-lg">
+      <div className="glass-card flex flex-col items-center p-6 w-full shadow-lg relative">
+        <div className="absolute top-5 left-5 z-50">
+          <Filter filterData={filterData} setFilterData={setFilterData} />
+        </div>
         <p className="text-text-200 text-xs font-semibold tracking-widest mb-3">MEU SALDO</p>
         
         {/* Receber o valor do saldo */}

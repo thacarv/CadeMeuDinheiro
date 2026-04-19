@@ -3,7 +3,7 @@ import AppMenu from "./components/AppMenu";
 import "./css/App.css";
 import MiddleBox from "./components/MiddleBox";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { supabase } from "./lib/supabase";
 import Login from "./pages/Login";
 import { Session } from "@supabase/supabase-js";
@@ -27,6 +27,28 @@ function App() {
   const [positiveValue, setPositiveValue] = useState(0);
   const [negativeValue, setNegativeValue] = useState(0);
   const [installPrompt, setInstallPrompt] = useState<any>(null);
+
+  const currentYear = new Date().getFullYear();
+  const currentMonth = (new Date().getMonth() + 1).toString().padStart(2, '0');
+  const daysInMonth = new Date(currentYear, parseInt(currentMonth), 0).getDate();
+  
+  const [filterData, setFilterData] = useState({ 
+    transactionType: 'all', 
+    start: `${currentYear}-${currentMonth}-01`, 
+    end: `${currentYear}-${currentMonth}-${daysInMonth}` 
+  });
+
+  const filteredHistoryList = useMemo(() => {
+    return historyList.filter((item: any) => {
+      if (filterData.transactionType !== 'all' && item.transaction !== filterData.transactionType) return false;
+      if (item.date && item.date.length === 3) {
+        const itemDate = new Date(`${item.date[0]}-${item.date[1]}-${item.date[2]}T12:00:00`);
+        if (filterData.start && itemDate < new Date(`${filterData.start}T00:00:00`)) return false;
+        if (filterData.end && itemDate > new Date(`${filterData.end}T23:59:59`)) return false;
+      }
+      return true;
+    });
+  }, [historyList, filterData]);
 
   // Escuta o evento oficial do Navegador que avisa que o App está pronto para ser instalado
   useEffect(() => {
@@ -81,18 +103,17 @@ function App() {
     fetchData();
   }, [session]);
 
-  // Sempre que a lista de histórico atualizar, recalcula todo o balanço
   useEffect(() => {
     let pos = 0;
     let neg = 0;
-    historyList.forEach((item) => {
+    filteredHistoryList.forEach((item) => {
       if (item.transaction === "entrada") pos += item.valor;
       else neg += item.valor;
     });
     setPositiveValue(pos);
     setNegativeValue(neg);
     setFinalBalance(pos - neg);
-  }, [historyList]);
+  }, [filteredHistoryList]);
 
   // Se não estiver logado, exibe apenas a tela de Login
   if (!session) {
@@ -110,11 +131,14 @@ function App() {
             negativeValue={negativeValue}
             session={session}
             setPageValue={setPageValue}
+            filterData={filterData}
+            setFilterData={setFilterData}
           />
           <MiddleBox
             pageValue={pageValue}
             setHistoryList={setHistoryList}
-            historyList={historyList}
+            historyList={filteredHistoryList}
+            rawHistoryList={historyList}
             session={session}
             setPageValue={setPageValue}
             installPrompt={installPrompt}

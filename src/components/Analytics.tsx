@@ -1,16 +1,15 @@
 import { LineChart } from "@mui/x-charts";
 import { PieChart } from "@mui/x-charts/PieChart";
-import Filter from "./Filter";
 import { useSwipeable } from "react-swipeable";
 import { useState, useMemo, useRef } from "react";
 import { categoryList } from "../assets/Files/category";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { formatCurrency } from "../utils/formatCurrency";
+import ItemObject from "./ItemObject";
 
-function Analytics({ historyList }: any) {
+function Analytics({ historyList, removeTransaction }: any) {
   const [changeGraph, setChangeGraph] = useState(false);
   const [filterCategories, setFilterCategories] = useState<string[]>([]);
-  const [filterData, setFilterData] = useState({ transactionType: 'all', start: '', end: '' });
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -30,20 +29,13 @@ function Analytics({ historyList }: any) {
     }
   };
 
-  // Filtragem Reativa de Dados baseada nos Controles
+  // Filtragem Reativa de Dados baseada nos Controles (Apenas Categorias agora, pois as datas e tipos vêm filtrados do App.tsx)
   const filteredList = useMemo(() => {
     return historyList.filter((item: any) => {
-      if (filterData.transactionType !== 'all' && item.transaction !== filterData.transactionType) return false;
       if (filterCategories.length > 0 && !filterCategories.includes(item.category)) return false;
-
-      if (item.date && item.date.length === 3) {
-        const itemDate = new Date(`${item.date[0]}-${item.date[1]}-${item.date[2]}T00:00:00`);
-        if (filterData.start && itemDate < new Date(`${filterData.start}T00:00:00`)) return false;
-        if (filterData.end && itemDate > new Date(`${filterData.end}T23:59:59`)) return false;
-      }
       return true;
     });
-  }, [historyList, filterCategories, filterData]);
+  }, [historyList, filterCategories]);
 
   // -- Preparando os dados para PIECHART --
   const pieData = useMemo(() => {
@@ -104,11 +96,6 @@ function Analytics({ historyList }: any) {
     <div>
       <div className="flex flex-col items-center pt-2 w-full pb-20 relative">
         <h1 className="mt-2 text-xl font-semibold text-white tracking-wide">RELATÓRIOS</h1>
-        
-        {/* Componente Filter */}
-        <div className="flex items-start w-full max-w-[340px] mt-4 px-4 z-20">
-          <Filter filterData={filterData} setFilterData={setFilterData} />
-        </div>
 
         {/* Gráficos */}
         <div {...handlers} className="w-full max-w-[340px] flex flex-col items-center mt-4">
@@ -191,6 +178,19 @@ function Analytics({ historyList }: any) {
             <ChevronRight size={20} />
           </button>
         </div>
+
+        {/* LISTA DINÂMICA DE TRANSAÇÕES */}
+        {filterCategories.length > 0 && (
+          <div className="div-app-content-theme w-full max-w-[340px] px-1 flex flex-col gap-3 mt-8 pb-10 z-10 fade-in">
+            <h2 className="text-xs font-semibold tracking-wider text-text-200 uppercase mb-2 pl-2">
+               EXTRATO: {filterCategories.join(', ')}
+            </h2>
+            {[...filteredList].reverse().map((item: any) => (
+               <ItemObject key={item.id} item={item} removeTransaction={removeTransaction} />
+            ))}
+          </div>
+        )}
+
       </div>
     </div>
   );

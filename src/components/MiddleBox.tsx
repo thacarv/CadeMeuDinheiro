@@ -8,6 +8,7 @@ function MiddleBox({
   pageValue,
   setHistoryList,
   historyList,
+  rawHistoryList,
   session,
   setPageValue,
   installPrompt,
@@ -16,8 +17,8 @@ function MiddleBox({
 
   // Função para remover as transações tanto no banco de dados quanto na UI em tempo real
   async function removeTransaction(itemInfo: any) {
-    // UI otimista
-    const newList = historyList.filter((item: any) => itemInfo.id !== item.id);
+    // UI otimista atua na base sem filtros 
+    const newList = (rawHistoryList || historyList).filter((item: any) => itemInfo.id !== item.id);
     setHistoryList(newList);
 
     // Banco de dados Supabase
@@ -29,6 +30,7 @@ function MiddleBox({
       {pageValue === 1 ? (
         <Transaction
           historyList={historyList}
+          rawHistoryList={rawHistoryList || historyList}
           setHistoryList={setHistoryList}
           removeTransaction={removeTransaction}
         />
@@ -38,7 +40,7 @@ function MiddleBox({
           removeTransaction={removeTransaction}
         />
       ) : pageValue === 3 ? (
-        <Analytics historyList={historyList} />
+        <Analytics historyList={historyList} removeTransaction={removeTransaction} />
       ) : pageValue === 4 ? (
         <Settings 
           session={session} 

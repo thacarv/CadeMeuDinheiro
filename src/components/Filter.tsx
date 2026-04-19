@@ -19,7 +19,7 @@ function Filter({ filterData, setFilterData }: any) {
         </button>
         {/*  MAIN DIV */}
         <div
-          className={`${filterDown ? "flex flex-col w-full bg-white/5 backdrop-blur-md rounded-2xl p-4 mt-2 border border-white/10 shadow-lg relative z-20" : "hidden"}`}
+          className={`${filterDown ? "flex flex-col w-[300px] bg-[#0f172a] rounded-2xl p-5 mt-2 border border-white/10 shadow-[0_10px_60px_rgba(0,0,0,0.9)] absolute left-0 top-full z-[100]" : "hidden"}`}
         >
           {/*  Transaction */}
           <div className="flex justify-center gap-4 mt-2">
@@ -43,17 +43,21 @@ function Filter({ filterData, setFilterData }: any) {
               <input 
                 value={filterData.start}
                 onChange={(e) => setFilterData({...filterData, start: e.target.value})}
+                onClick={(e: any) => { try { e.target.showPicker(); } catch(err){} }}
+                style={{ colorScheme: "dark" }}
                 type="date" 
-                className="bg-transparent text-white border-b border-white/20 text-sm pb-1 outline-none cursor-pointer" 
+                className="bg-transparent text-white border-b border-white/20 text-sm pb-1 outline-none cursor-pointer w-full" 
               />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col w-full">
               <label className="text-xs text-text-200 mb-1">Fim</label>
               <input 
                 value={filterData.end}
                 onChange={(e) => setFilterData({...filterData, end: e.target.value})}
+                onClick={(e: any) => { try { e.target.showPicker(); } catch(err){} }}
+                style={{ colorScheme: "dark" }}
                 type="date" 
-                className="bg-transparent text-white border-b border-white/20 text-sm pb-1 outline-none cursor-pointer" 
+                className="bg-transparent text-white border-b border-white/20 text-sm pb-1 outline-none cursor-pointer w-full" 
               />
             </div>
           </div>
