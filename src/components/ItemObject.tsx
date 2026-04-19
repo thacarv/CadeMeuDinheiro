@@ -1,7 +1,8 @@
 import { X } from "lucide-react";
 import { categoryList } from "../assets/Files/category";
+import { formatCurrency } from "../utils/formatCurrency";
 
-function ItemObject({ item, removeTransaction }) {
+function ItemObject({ item, removeTransaction }: any) {
   let itemFull = categoryList.filter((cat) => {
     if (cat.categoria == item.category) {
       return cat.icon;
@@ -28,8 +29,7 @@ function ItemObject({ item, removeTransaction }) {
       </div>
       <div className="flex items-center gap-3">
         <span className={`font-bold tracking-wider ${item.transaction === 'entrada' ? 'text-secondary-100' : 'text-secondary-200'}`}>
-          {item.transaction === "entrada" ? "+" : "-"} R$
-          {item.valor.toFixed(2)}
+          {item.transaction === "entrada" ? "+" : "-"} {formatCurrency(item.valor)}
         </span>
         <button
           onClick={() => removeTransaction(item)}

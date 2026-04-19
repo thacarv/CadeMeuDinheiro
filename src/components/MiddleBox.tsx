@@ -1,12 +1,15 @@
 import Analytics from "./Analytics";
 import FixedTransactions from "./FixedTransactions";
 import Transaction from "./Transaction";
+import Settings from "./Settings";
 import { supabase } from "../lib/supabase";
 
 function MiddleBox({
   pageValue,
   setHistoryList,
   historyList,
+  session,
+  setPageValue,
 }: any) {
 
   // Função para remover as transações tanto no banco de dados quanto na UI em tempo real
@@ -32,9 +35,11 @@ function MiddleBox({
           historyList={historyList}
           removeTransaction={removeTransaction}
         />
-      ) : (
+      ) : pageValue === 3 ? (
         <Analytics historyList={historyList} />
-      )}
+      ) : pageValue === 4 ? (
+        <Settings session={session} setPageValue={setPageValue} />
+      ) : null}
     </div>
   );
 }

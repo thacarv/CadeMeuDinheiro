@@ -97,11 +97,15 @@ function App() {
             finalBalance={finalBalance}
             positiveValue={positiveValue}
             negativeValue={negativeValue}
+            session={session}
+            setPageValue={setPageValue}
           />
           <MiddleBox
             pageValue={pageValue}
             setHistoryList={setHistoryList}
             historyList={historyList}
+            session={session}
+            setPageValue={setPageValue}
           />
         </div>
         <div className="absolute bottom-0 left-0 right-0 pt-16 pb-6 px-6 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/80 to-transparent pointer-events-none">

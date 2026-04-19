@@ -6,24 +6,48 @@ function Login() {
   const [password, setPassword] = useState("");
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setSuccessMsg("");
+    setIsLoading(true);
 
-    if (isLogin) {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      if (error) setError(error.message);
-    } else {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-      });
-      if (error) setError(error.message);
-      else setError("Conta criada com sucesso! Você pode fazer login agora.");
+    // XSS / Script Injection Basic Prevention
+    if (/[<>]/.test(email)) {
+      setError("E-mail contém caracteres inválidos ou scripts não permitidos.");
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      if (isLogin) {
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+        if (error) setError("Credenciais Inválidas ou Incorretas.");
+      } else {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo: import.meta.env.VITE_AUTH_REDIRECT_URL
+          }
+        });
+        if (error) {
+          setError(error.message);
+        } else {
+          setSuccessMsg("Conta criada com sucesso! Você pode fazer o Login.");
+          // Switch to login tab automatically to facilitate ux
+          setIsLogin(true);
+          setPassword("");
+        }
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -39,6 +63,7 @@ function Login() {
         </p>
 
         {error && <div className="w-full bg-secondary-200/20 text-secondary-200 rounded-xl p-3 mb-6 text-sm text-center font-medium border border-secondary-200/50">{error}</div>}
+        {successMsg && <div className="w-full bg-emerald-500/20 text-emerald-400 rounded-xl p-3 mb-6 text-sm text-center font-medium border border-emerald-500/50">{successMsg}</div>}
         
         <form onSubmit={handleAuth} className="w-full flex flex-col gap-5">
           <div className="flex flex-col">
@@ -63,13 +88,21 @@ function Login() {
               required
             />
           </div>
-          <button type="submit" className="button-active w-full mt-4 h-14 font-bold tracking-wide text-lg">
-            {isLogin ? "ENTRAR" : "CADASTRAR"}
+          <button 
+            type="submit" 
+            disabled={isLoading}
+            className={`button-active w-full mt-4 h-14 font-bold tracking-wide text-lg flex items-center justify-center transition-all ${isLoading ? "opacity-50 cursor-not-allowed saturate-50" : ""}`}
+          >
+            {isLoading ? "PROCESSANDO..." : (isLogin ? "ENTRAR" : "CADASTRAR")}
           </button>
         </form>
         
         <button
-          onClick={() => setIsLogin(!isLogin)}
+          onClick={() => {
+            setIsLogin(!isLogin);
+            setError("");
+            setSuccessMsg("");
+          }}
           className="mt-8 text-sm font-medium text-text-200 hover:text-white transition-colors cursor-pointer"
         >
           {isLogin ? "Não possui uma conta? Criar agora." : "Já possui conta? Faça o login."}

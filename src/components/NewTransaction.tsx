@@ -17,12 +17,21 @@ function NewTransaction({ setHistoryList, historyList }: any) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     
+    const rawTransactionType = (formData.get("transaction") || "") as string;
+    const rawCategory = (formData.get("category") || "") as string;
+
+    // Proteção de Segurança: Previne injeção de HTML/Scripts caso o usuário altere os elementos do navegador
+    if (/[<>]/.test(rawTransactionType) || /[<>]/.test(rawCategory)) {
+      alert("Operação bloqueada pelo servidor: Comandos ou caracteres inválidos detectados.");
+      return;
+    }
+
     // Objeto tipado pro frontend
     const transactionObject = {
       id: v4(),
       valor: parseFloat(formData.get("valor") as string),
-      transaction: formData.get("transaction") as string,
-      category: formData.get("category") as string,
+      transaction: rawTransactionType,
+      category: rawCategory,
       date: (formData.get("date") as string).split("-"),
       recurring: formData.get("recurring") as string | null,
       frequency: formData.get("frequency") as string | null,

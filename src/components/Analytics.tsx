@@ -5,6 +5,7 @@ import { useSwipeable } from "react-swipeable";
 import { useState, useMemo, useRef } from "react";
 import { categoryList } from "../assets/Files/category";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { formatCurrency } from "../utils/formatCurrency";
 
 function Analytics({ historyList }: any) {
   const [changeGraph, setChangeGraph] = useState(false);
@@ -131,7 +132,7 @@ function Analytics({ historyList }: any) {
           <div className="flex justify-center items-center h-[220px] w-full bg-white/5 rounded-3xl p-4 shadow-inner relative z-0">
             <div className={`${changeGraph ? "hidden" : "w-full flex justify-center"}`}>
               <PieChart
-                series={[{ innerRadius: 40, outerRadius: 90, data: pieData, arcLabel: (item) => item.label !== "Nenhum Dado" ? `R$${item.value}` : "" }]}
+                series={[{ innerRadius: 40, outerRadius: 90, data: pieData, arcLabel: (item) => item.label !== "Nenhum Dado" ? formatCurrency(item.value) : "" }]}
                 {...settings}
               />
             </div>
@@ -177,7 +178,7 @@ function Analytics({ historyList }: any) {
                     {item.icon}
                     <p className="text-white mt-1 mb-1 font-bold">{item.categoria}</p>
                   </div>
-                  <p className="text-white/90 font-bold text-xs pointer-events-none pb-2 tracking-wide">R$ {categoriaValue(item.categoria)}</p>
+                  <p className="text-white/90 font-bold text-[10px] pointer-events-none pb-2 tracking-wide text-center px-1 truncate w-full">{formatCurrency(categoriaValue(item.categoria))}</p>
                 </div>
               );
             })}
