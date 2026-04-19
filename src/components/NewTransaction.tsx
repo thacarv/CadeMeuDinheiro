@@ -5,7 +5,7 @@ import RadioInput from "./RadioInput";
 import { useState } from "react";
 import { supabase } from "../lib/supabase";
 
-function NewTransaction({ setHistoryList, historyList }: any) {
+function NewTransaction({ setHistoryList, historyList, onSuccess }: any) {
   const [valorNumber, setValorNumber] = useState("");
   const [categoryType, setCategoryType] = useState("");
   const [dateD, setDateD] = useState("");
@@ -61,6 +61,9 @@ function NewTransaction({ setHistoryList, historyList }: any) {
     if(error){
       console.error("Erro ao salvar transação no Supabase: ", error);
       // Aqui em um app real poderiamos reverter a UI no caso de fail.
+    } else {
+      // 3. Voltar visualmente pra tela de histórico automaticamente
+      if (onSuccess) onSuccess();
     }
   }
 

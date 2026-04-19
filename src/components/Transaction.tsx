@@ -51,6 +51,7 @@ function Transaction({
         <NewTransaction
           setHistoryList={setHistoryList}
           historyList={rawHistoryList || historyList}
+          onSuccess={() => setNewTransaction(false)}
         />
       </div>
     </div>
