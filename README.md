@@ -1,6 +1,14 @@
-# Cadê Meu Dinheiro? 💸
+<p align="center">
+  <img src="public/pwa-icon.png" width="150" alt="Logo Cadê Meu Dinheiro">
+</p>
 
-Uma aplicação focada e moderna de controle financeiro desenvolvida em React e TypeScript para ajudar você a visualizar e cuidar do seu dinheiro de forma limpa e sem complicação.
+<h1 align="center">Cadê Meu Dinheiro? 💸</h1>
+
+<p align="center">
+  <strong>🌐 Acesse o aplicativo ao vivo: <a href="https://cybernow.com.br/cademeudinheiro/" target="_blank">cybernow.com.br/cademeudinheiro</a></strong>
+</p>
+
+Uma aplicação robusta, PWA-ready e moderna de controle financeiro desenvolvida em React e TypeScript para ajudar você a visualizar e cuidar do seu dinheiro de forma limpa e segura.
 
 ## O que ela faz
 

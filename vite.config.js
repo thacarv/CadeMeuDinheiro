@@ -25,10 +25,14 @@ export default defineConfig({
         scope: '/cademeudinheiro/',
         icons: [
           {
-            src: 'pwa-icon.svg',
-            sizes: '192x192 512x512',
-            type: 'image/svg+xml',
-            purpose: 'any maskable'
+            src: 'pwa-icon.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: 'pwa-icon.png',
+            sizes: '512x512',
+            type: 'image/png'
           }
         ]
       }

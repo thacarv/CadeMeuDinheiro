@@ -26,6 +26,17 @@ function App() {
   const [finalBalance, setFinalBalance] = useState(0);
   const [positiveValue, setPositiveValue] = useState(0);
   const [negativeValue, setNegativeValue] = useState(0);
+  const [installPrompt, setInstallPrompt] = useState<any>(null);
+
+  // Escuta o evento oficial do Navegador que avisa que o App está pronto para ser instalado
+  useEffect(() => {
+    const handler = (e: Event) => {
+      e.preventDefault();
+      setInstallPrompt(e);
+    };
+    window.addEventListener("beforeinstallprompt", handler);
+    return () => window.removeEventListener("beforeinstallprompt", handler);
+  }, []);
 
   // Monitora Autenticação
   useEffect(() => {
@@ -106,6 +117,8 @@ function App() {
             historyList={historyList}
             session={session}
             setPageValue={setPageValue}
+            installPrompt={installPrompt}
+            setInstallPrompt={setInstallPrompt}
           />
         </div>
         <div className="absolute bottom-0 left-0 right-0 pt-16 pb-6 px-6 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/80 to-transparent pointer-events-none">

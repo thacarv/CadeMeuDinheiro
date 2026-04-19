@@ -10,13 +10,15 @@ function Balance({ finalBalance, positiveValue, negativeValue, session, setPageV
     <div className="relative w-full z-10 pt-8 pb-2">
       <div className="w-full mb-3 flex items-center justify-between">
          <p className="text-white/60 text-sm tracking-wide font-medium">Olá, <span className="text-white font-semibold">@{accountName}</span></p>
-         <button 
-           onClick={() => setPageValue?.(4)} 
-           className="p-2 text-text-200 hover:text-white transition-all cursor-pointer rounded-[14px] bg-white/5 backdrop-blur-md hover:bg-white/10 hover:scale-105 active:scale-95 shadow-sm border border-white/5"
-           title="Configurações da Conta"
-         >
-            <SettingsIcon size={18} />
-         </button>
+         <div className="flex gap-2">
+           <button 
+             onClick={() => setPageValue?.(4)} 
+             className="p-2 text-text-200 hover:text-white transition-all cursor-pointer rounded-[14px] bg-white/5 backdrop-blur-md hover:bg-white/10 hover:scale-105 active:scale-95 shadow-sm border border-white/5"
+             title="Configurações da Conta"
+           >
+              <SettingsIcon size={18} />
+           </button>
+         </div>
       </div>
       <div className="glass-card flex flex-col items-center p-6 w-full shadow-lg">
         <p className="text-text-200 text-xs font-semibold tracking-widest mb-3">MEU SALDO</p>

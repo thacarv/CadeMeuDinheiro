@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
-import { ArrowLeft, Edit3, Mail, Lock } from "lucide-react";
+import { ArrowLeft, Edit3, Mail, Lock, DownloadCloud } from "lucide-react";
 
-export default function Settings({ session, setPageValue }: any) {
+export default function Settings({ session, setPageValue, installPrompt, setInstallPrompt }: any) {
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,6 +15,15 @@ export default function Settings({ session, setPageValue }: any) {
       setDisplayName(session.user.user_metadata?.display_name || "");
     }
   }, [session]);
+
+  const handleInstallApp = async () => {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setInstallPrompt(null);
+    }
+  };
 
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -141,6 +150,22 @@ export default function Settings({ session, setPageValue }: any) {
             {isLoading ? "SALVANDO MUDANÇAS..." : "APLICAR MUDANÇAS"}
           </button>
         </form>
+
+        {installPrompt && (
+          <div className="flex flex-col mt-2 pt-6 border-t border-white/10">
+            <button 
+              type="button"
+              onClick={handleInstallApp}
+              className="w-full h-12 bg-primary-100/10 text-primary-100 border border-primary-100/30 rounded-xl font-bold tracking-wide text-sm flex items-center justify-center transition-all shadow-lg hover:bg-primary-100/20"
+            >
+              <DownloadCloud size={18} className="mr-2" />
+              INSTALAR APLICATIVO
+            </button>
+            <p className="text-[10px] text-white/40 text-center mt-2 px-4 leading-tight">
+              Acesse o aplicativo diretamente pela tela de início do seu dispositivo celular.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
